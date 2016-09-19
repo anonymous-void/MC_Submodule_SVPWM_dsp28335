@@ -51,10 +51,8 @@
 ;//
 ;//
 ;//###########################################################################
-;// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-;// $Release Date: November  6, 2015 $
-;// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-;//             http://www.ti.com/ ALL RIGHTS RESERVED $
+;// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+;// $Release Date: August 4, 2009 $
 ;//###########################################################################	
 
        .def _DSP28x_usDelay

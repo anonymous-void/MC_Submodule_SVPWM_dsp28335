@@ -1,3 +1,5 @@
+// TI File $Revision: /main/2 $
+// Checkin $Date: May 7, 2007   16:05:39 $
 //###########################################################################
 //
 // FILE:   DSP2833x_ECan.h
@@ -5,10 +7,8 @@
 // TITLE:  DSP2833x Device eCAN Register Definitions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_ECAN_H

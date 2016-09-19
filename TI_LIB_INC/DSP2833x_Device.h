@@ -1,3 +1,5 @@
+// TI File $Revision: /main/5 $
+// Checkin $Date: January 22, 2008   16:55:35 $
 //###########################################################################
 //
 // FILE:   DSP2833x_Device.h
@@ -5,10 +7,8 @@
 // TITLE:  DSP2833x Device Definitions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_DEVICE_H
@@ -113,7 +113,7 @@ typedef long double        float64;
 #include "DSP2833x_EQep.h"               // Enhanced QEP
 #include "DSP2833x_Gpio.h"               // General Purpose I/O Registers
 #include "DSP2833x_I2c.h"                // I2C Registers
-#include "DSP2833x_Mcbsp.h"              // McBSP
+#include "DSP2833x_McBSP.h"              // McBSP
 #include "DSP2833x_PieCtrl.h"            // PIE Control Registers
 #include "DSP2833x_PieVect.h"            // PIE Vector Table
 #include "DSP2833x_Spi.h"                // SPI Registers
@@ -121,6 +121,25 @@ typedef long double        float64;
 #include "DSP2833x_SysCtrl.h"            // System Control/Power Modes
 #include "DSP2833x_XIntrupt.h"           // External Interrupts
 #include "DSP2833x_Xintf.h"              // XINTF External Interface
+
+//#include "SM_app.h"
+
+
+extern void InitFlash(void);
+
+
+void MemCopy(Uint16 *SourceAddr, Uint16* SourceEndAddr, Uint16* DestAddr);
+
+
+//---------------------------------------------------------------------------
+// External symbols created by the linker cmd file
+// DSP28 examples will use these to relocate code from one LOAD location
+// in either Flash or XINTF to a different RUN location in internal
+// RAM
+extern Uint16 RamfuncsLoadStart;
+extern Uint16 RamfuncsLoadEnd;
+extern Uint16 RamfuncsRunStart;
+
 
 #if DSP28_28335
 #define DSP28_EPWM1  1

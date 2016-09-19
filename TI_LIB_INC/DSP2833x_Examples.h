@@ -1,3 +1,5 @@
+// TI File $Revision: /main/9 $
+// Checkin $Date: July 2, 2008   14:31:12 $
 //###########################################################################
 //
 // FILE:   DSP2833x_Examples.h
@@ -5,10 +7,8 @@
 // TITLE:  DSP2833x Device Definitions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_EXAMPLES_H
@@ -104,12 +104,12 @@ extern "C" {
 // Include Example Header Files:
 //
 
-#include "DSP2833x_GlobalPrototypes.h"         // Prototypes for global functions within the
+//#include "DSP2833x_GlobalPrototypes.h"         // Prototypes for global functions within the
                                               // .c files.
 
-#include "DSP2833x_EPwm_defines.h"             // Macros used for PWM examples.
-#include "DSP2833x_Dma_defines.h"              // Macros used for DMA examples.
-#include "DSP2833x_I2c_defines.h"              // Macros used for I2C examples.
+//#include "DSP2833x_ePwm_defines.h"             // Macros used for PWM examples.
+//#include "DSP2833x_Dma_defines.h"              // Macros used for DMA examples.
+//#include "DSP2833x_I2C_defines.h"              // Macros used for I2C examples.
 
 #define PARTNO_28335  0xEF
 #define PARTNO_28334  0xEE
@@ -121,7 +121,7 @@ extern "C" {
 
 // Include files not used with DSP/BIOS
 #ifndef DSP28_BIOS
-#include "DSP2833x_DefaultIsr.h"
+#include "DSP2833x_DefaultISR.h"
 #endif
 
 

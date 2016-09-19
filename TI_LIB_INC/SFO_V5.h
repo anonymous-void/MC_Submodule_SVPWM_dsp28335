@@ -13,11 +13,6 @@
 //  0.01| 09 Jan 2004 | TI   | New module
 //  0.02| 22 Jun 2007 | TI   | New version (V5) with support for more channels
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
-//###########################################################################
 
 
 //============================================================================

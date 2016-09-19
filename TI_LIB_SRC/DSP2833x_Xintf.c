@@ -1,3 +1,5 @@
+// TI File $Revision: /main/5 $
+// Checkin $Date: August 16, 2007   11:06:26 $
 //###########################################################################
 //
 // FILE:   DSP2833x_Xintf.c
@@ -12,15 +14,13 @@
 //          examples/run_from_xintf project.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
-
+#include "SM_app.h"
 //---------------------------------------------------------------------------
 // InitXINTF:
 //---------------------------------------------------------------------------
@@ -142,6 +142,7 @@ void InitXintf(void)
 
    asm(" RPT #7 || NOP");
 
+
 }
 
 void InitXintf32Gpio()
@@ -185,7 +186,7 @@ void InitXintf32Gpio()
      InitXintf16Gpio();
 }
 
-void InitXintf16Gpio()
+void InitXintf16Gpio(void)
 {
      EALLOW;
      GpioCtrlRegs.GPCMUX1.bit.GPIO64 = 3;  // XD15
@@ -225,7 +226,7 @@ void InitXintf16Gpio()
      GpioCtrlRegs.GPBMUX1.bit.GPIO39 = 3;  // XA16
      GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 3;  // XA17
      GpioCtrlRegs.GPAMUX2.bit.GPIO30 = 3;  // XA18
-     GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 3;  // XA19
+    // GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 3;  // XA19
 
      GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 3;  // XREADY
 	 GpioCtrlRegs.GPBMUX1.bit.GPIO35 = 3;  // XRNW
@@ -233,7 +234,7 @@ void InitXintf16Gpio()
 
      GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
      GpioCtrlRegs.GPBMUX1.bit.GPIO37 = 3;  // XZCS7
-     GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 3;  // XZCS6
+    // GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 3;  // XZCS6
      EDIS;
 }
 

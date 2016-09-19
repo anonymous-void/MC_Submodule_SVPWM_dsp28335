@@ -1,3 +1,5 @@
+// TI File $Revision: /main/8 $
+// Checkin $Date: April 15, 2009   09:54:05 $
 //###########################################################################
 //
 // FILE:   DSP2833x_SysCtrl.c
@@ -9,16 +11,14 @@
 //         Example initialization of system resources.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 
 #include "DSP2833x_Device.h"     // Headerfile Include File
 #include "DSP2833x_Examples.h"   // Examples Include File
-
+#include "SM_app.h"
 // Functions that will be run from RAM need to be assigned to
 // a different section.  This section will then be mapped to a load and
 // run address using the linker cmd file.
@@ -237,7 +237,7 @@ void InitPeripheralClocks(void)
    EALLOW;
 
 // HISPCP/LOSPCP prescale register settings, normally it will be set to default values
-   SysCtrlRegs.HISPCP.all = 0x0001;
+   SysCtrlRegs.HISPCP.all = 0x0001;    
    SysCtrlRegs.LOSPCP.all = 0x0002;
 
 // XCLKOUT to SYSCLKOUT ratio.  By default XCLKOUT = 1/4 SYSCLKOUT

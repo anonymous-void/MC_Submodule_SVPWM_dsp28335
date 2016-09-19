@@ -1,3 +1,5 @@
+// TI File $Revision: /main/4 $
+// Checkin $Date: July 9, 2009   10:51:59 $
 //###########################################################################
 //
 // FILE:    DSP2833x_CpuTimers.c
@@ -11,10 +13,8 @@
 //          on integrating DSP-BIOS or another realtime OS.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #include "DSP2833x_Device.h"     // Headerfile Include File
@@ -53,26 +53,22 @@ void InitCpuTimers(void)
 // Do not use this timer if you ever plan on integrating
 // DSP-BIOS or another realtime OS.
 
-// Initialize address pointers to respective timer registers:
-	CpuTimer1.RegsAddr = &CpuTimer1Regs;
-	CpuTimer2.RegsAddr = &CpuTimer2Regs;
-	// Initialize timer period to maximum:
-	CpuTimer1Regs.PRD.all  = 0xFFFFFFFF;
-	CpuTimer2Regs.PRD.all  = 0xFFFFFFFF;
-	// Initialize pre-scale counter to divide by 1 (SYSCLKOUT):
-	CpuTimer1Regs.TPR.all  = 0;
-	CpuTimer1Regs.TPRH.all = 0;
-	CpuTimer2Regs.TPR.all  = 0;
-	CpuTimer2Regs.TPRH.all = 0;
-	// Make sure timers are stopped:
-	CpuTimer1Regs.TCR.bit.TSS = 1;
-	CpuTimer2Regs.TCR.bit.TSS = 1;
-	// Reload all counter register with period value:
-	CpuTimer1Regs.TCR.bit.TRB = 1;
-	CpuTimer2Regs.TCR.bit.TRB = 1;
-	// Reset interrupt counters:
-	CpuTimer1.InterruptCount = 0;
-	CpuTimer2.InterruptCount = 0;
+    // Initialize address pointers to respective timer registers:
+    CpuTimer1.RegsAddr = &CpuTimer1Regs;
+    CpuTimer2.RegsAddr = &CpuTimer2Regs;
+    // Initialize timer period to maximum:
+    CpuTimer1Regs.PRD.all  = 0xFFFFFFFF;
+    CpuTimer2Regs.PRD.all  = 0xFFFFFFFF;
+    // Make sure timers are stopped:
+    CpuTimer1Regs.TCR.bit.TSS = 1;
+    CpuTimer2Regs.TCR.bit.TSS = 1;
+    // Reload all counter register with period value:
+    CpuTimer1Regs.TCR.bit.TRB = 1;
+    CpuTimer2Regs.TCR.bit.TRB = 1;
+    // Reset interrupt counters:
+    CpuTimer1.InterruptCount = 0;
+    CpuTimer2.InterruptCount = 0;
+
 }
 
 //---------------------------------------------------------------------------

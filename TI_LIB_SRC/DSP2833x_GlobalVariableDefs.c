@@ -1,3 +1,5 @@
+// TI File $Revision: /main/4 $
+// Checkin $Date: June 2, 2008   11:12:33 $
 //###########################################################################
 //
 // FILE:	DSP2833x_GlobalVariableDefs.c
@@ -5,10 +7,8 @@
 // TITLE:	DSP2833x Global Variables and Data Section Pragmas.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
@@ -361,7 +361,7 @@ volatile struct PIE_CTRL_REGS PieCtrlRegs;
 #else
 #pragma DATA_SECTION(PieVectTable,"PieVectTableFile");
 #endif
-volatile struct PIE_VECT_TABLE PieVectTable;
+struct PIE_VECT_TABLE PieVectTable;
 
 //----------------------------------------
 #ifdef __cplusplus

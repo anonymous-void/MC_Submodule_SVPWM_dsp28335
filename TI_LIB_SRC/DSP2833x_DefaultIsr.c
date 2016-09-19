@@ -1,3 +1,5 @@
+// TI File $Revision: /main/2 $
+// Checkin $Date: January 14, 2008   11:17:46 $
 //###########################################################################
 //
 // FILE:	DSP2833x_DefaultIsr.c
@@ -9,16 +11,14 @@
 // vector table during device debug.  In this manner if an interrupt is taken
 // during firmware development, there will always be an ISR to catch it.
 //
-// As development progresses, these ISR routines can be eliminated and replaced
+// As develpment progresses, these ISR rotuines can be eliminated and replaced
 // with the user's own ISR routines for each interrupt.  Since these shell ISRs
 // include infinite loops they will typically not be included as-is in the final
 // production firmware.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File

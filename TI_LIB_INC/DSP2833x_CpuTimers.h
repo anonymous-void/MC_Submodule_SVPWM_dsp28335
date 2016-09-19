@@ -1,3 +1,5 @@
+// TI File $Revision: /main/4 $
+// Checkin $Date: March 20, 2007   15:33:42 $
 //###########################################################################
 //
 // FILE:    DSP2833x_CpuTimers.h
@@ -14,10 +16,8 @@
 //          if using DSP-BIOS or another realtime OS.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_CPU_TIMERS_H

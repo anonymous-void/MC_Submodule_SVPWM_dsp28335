@@ -1,3 +1,5 @@
+// TI File $Revision: /main/11 $
+// Checkin $Date: May 12, 2008   14:30:08 $
 //###########################################################################
 //
 // FILE:   DSP2833x_GlobalPrototypes.h
@@ -5,10 +7,8 @@
 // TITLE:  Global prototypes for DSP2833x Examples
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_GLOBALPROTOTYPES_H
@@ -194,7 +194,7 @@ extern Uint16 RamfuncsRunStart;
 extern Uint16 XintffuncsLoadStart;
 extern Uint16 XintffuncsLoadEnd;
 extern Uint16 XintffuncsRunStart;
-extern Uint16 XintffuncsLoadSize;
+
 
 #ifdef __cplusplus
 }

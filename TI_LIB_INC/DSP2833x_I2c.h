@@ -1,3 +1,5 @@
+// TI File $Revision: /main/2 $
+// Checkin $Date: March 22, 2007   10:40:22 $
 //###########################################################################
 //
 // FILE:   DSP2833x_I2c.h
@@ -6,10 +8,8 @@
 //         Register Bit Definitions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_I2C_H
@@ -101,20 +101,6 @@ union I2CMDR_REG {
    struct I2CMDR_BITS     bit;
 };
 
-
-//----------------------------------------------------
-// I2C extended mode control register bit definitions */
-struct I2CEMDR_BITS {         // bits   description
-   Uint16 BCM:1;              // 0      Backward compatibility mode
-   Uint16 rsvd:15;            // 15     reserved   
-};
-
-union I2CEMDR_REG {
-   Uint16                 all;
-   struct I2CEMDR_BITS     bit;
-};
-
-
 //----------------------------------------------------
 // I2C pre-scaler register bit definitions */
 struct I2CPSC_BITS {         // bits   description
@@ -180,7 +166,7 @@ struct I2C_REGS {
    Uint16              I2CDXR;    // Data transmit
    union  I2CMDR_REG   I2CMDR;    // Mode
    union  I2CISRC_REG  I2CISRC;   // Interrupt source
-   union  I2CEMDR_REG  I2CEMDR;   // Extended Mode   
+   Uint16              rsvd1;     // reserved
    union  I2CPSC_REG   I2CPSC;    // Pre-scaler
    Uint16              rsvd2[19]; // reserved
    union  I2CFFTX_REG  I2CFFTX;   // Transmit FIFO

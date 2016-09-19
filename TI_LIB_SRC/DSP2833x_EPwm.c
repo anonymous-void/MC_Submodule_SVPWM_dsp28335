@@ -1,3 +1,5 @@
+// TI File $Revision: /main/1 $
+// Checkin $Date: August 18, 2006   13:46:19 $
 //###########################################################################
 //
 // FILE:   DSP2833x_EPwm.c
@@ -5,15 +7,14 @@
 // TITLE:  DSP2833x ePWM Initialization & Support Functions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
-
+#include "DSP2833x_ePwm_defines.h" 
+#include "SM_app.h"
 //---------------------------------------------------------------------------
 // InitEPwm: 
 //---------------------------------------------------------------------------
@@ -37,20 +38,19 @@ void InitEPwm(void)
 // inputs after reset.  
 // 
 
-void InitEPwmGpio(void)
+void InitEPwm1to4Gpio(void)
+
 {
    InitEPwm1Gpio();
    InitEPwm2Gpio();
    InitEPwm3Gpio();
-#if DSP28_EPWM4
    InitEPwm4Gpio();
-#endif // endif DSP28_EPWM4
-#if DSP28_EPWM5    
+
+ /*   
    InitEPwm5Gpio();
-#endif // endif DSP28_EPWM5
-#if DSP28_EPWM6
    InitEPwm6Gpio();
-#endif // endif DSP28_EPWM6 
+ */
+ 
 }
 
 void InitEPwm1Gpio(void)

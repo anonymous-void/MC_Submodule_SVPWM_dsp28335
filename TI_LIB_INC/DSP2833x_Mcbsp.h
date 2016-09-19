@@ -1,3 +1,5 @@
+// TI File $Revision: /main/5 $
+// Checkin $Date: May 14, 2008   16:30:31 $
 //###########################################################################
 //
 // FILE:   DSP2833x_Mcbsp.h
@@ -5,10 +7,8 @@
 // TITLE:  DSP2833x Device McBSP Register Definitions.
 //
 //###########################################################################
-// $TI Release: F2833x/F2823x Header Files and Peripheral Examples V141 $
-// $Release Date: November  6, 2015 $
-// $Copyright: Copyright (C) 2007-2015 Texas Instruments Incorporated -
-//             http://www.ti.com/ ALL RIGHTS RESERVED $
+// $TI Release: DSP2833x/DSP2823x C/C++ Header Files V1.31 $
+// $Release Date: August 4, 2009 $
 //###########################################################################
 
 #ifndef DSP2833x_MCBSP_H
@@ -92,9 +92,9 @@ struct  SPCR1_BITS {       // bit   description
    Uint16     RFULL:1;     // 2     Receive  full
    Uint16     RSYNCERR:1;  // 7     Receive  syn error
    Uint16     RINTM:2;     // 5:4   Receive  interrupt types
-   Uint16     rsvd1:1;     // 6     reserved
+   Uint16     ABIS:1;      // 6     ABIS mode select
    Uint16     DXENA:1;     // 7     DX hi-z enable
-   Uint16     rsvd2:3;     // 10:8  reserved
+   Uint16     rsvd:3;      // 10:8  reserved
    Uint16     CLKSTP:2;    // 12:11 CLKSTOP mode bit
    Uint16     RJUST:2;     // 13:14 Right justified
    Uint16     DLB:1;       // 15    Digital loop back
