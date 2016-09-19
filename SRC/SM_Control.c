@@ -59,7 +59,6 @@ Uint16 CMD_Handwith(void) ///主控制器发送命令处理
 			return 0;
 
 		}
-	return 0;
 }
 
 

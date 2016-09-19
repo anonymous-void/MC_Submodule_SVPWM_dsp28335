@@ -52,7 +52,7 @@ void EcatInit(void)
 void EcatDataInit(void) 
 {
 	Uint16 i=0;
-	Uint16 ret;
+//	Uint16 ret;
 	Uint16 *pRead;
 
 	
@@ -76,7 +76,7 @@ void EcatRead(Uint16 *pEtherCatReBuf)
 
 	pRead =  ECAT_START_ADDR+ECAT_DOWNLOAD_DATA_OFFSET;
 
-	for(i = 0; i <ECAT_DOWN_DATA_LENGTH; i++)  //从0读到46
+	for(i = 0; i <ECAT_DOWN_DATA_LENGTH; i++)  //浠�0璇诲埌46
 		{
 			ret = *(pRead++);
 			*(pEtherCatReBuf++) = ret;
@@ -191,179 +191,3 @@ void Ecat_CMD_Re(void)
 			MC_Modulation= ECAT_DOWNLOAD.CW_M;
 		}
 }
-
-	/*
-	if (((PowerModule_Index & 0xFF00) == 0xA100) || ((PowerModule_Index & 0xFF00) == 0xA300))//////并联A相或者串联A相上桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.A_UP_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////A相上桥臂第一个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////A相上桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////A相上桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_UP_LEG_CMD.bit.SM11;
-				}
-
-		}/////并联或串联A相上桥臂
-	
-	if (((PowerModule_Index & 0xFF00) == 0xA200) || ((PowerModule_Index & 0xFF00) == 0xA400))//////并联A相或者串联A相下桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.A_DOWN_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////A相下桥臂第一个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////A相下桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////A相下桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.A_DOWN_LEG_CMD.bit.SM11;
-				}
-
-		}////并联或串联A相下桥臂
-
-	if (((PowerModule_Index & 0xFF00) == 0xB100) || ((PowerModule_Index & 0xFF00) == 0xB300))//////并联B相或者串联B相上桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.B_UP_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////B相上桥臂第一个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////B相上桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////B相上桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_UP_LEG_CMD.bit.SM11;
-				}
-
-		}/////并联或串联B相上桥臂
-		
-	if (((PowerModule_Index & 0xFF00) == 0xB200) || ((PowerModule_Index & 0xFF00) == 0xB400))//////并联B相或者串联B相下桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.B_DOWN_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////B相下桥臂第一个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////B相下桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////B相下桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.B_DOWN_LEG_CMD.bit.SM11;
-				}
-
-		}////并联或串联B相下桥臂
-
-	if (((PowerModule_Index & 0xFF00) == 0xC100) || ((PowerModule_Index & 0xFF00) == 0xC300))//////并联C相或者串联C相上桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.C_UP_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////C相上桥臂第一个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////C相上桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////C相上桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_UP_LEG_CMD.bit.SM11;
-				}
-
-		}/////并联或串联C相上桥臂
-		
-	if (((PowerModule_Index & 0xFF00) == 0xC200) || ((PowerModule_Index & 0xFF00) == 0xC400))//////并联C相或者串联C相下桥臂
-		{
-			SM_CMD.bit.PM_CMD_STATUS = ECAT_DOWNLOAD.CMD_VAR.bit.C_DOWN_Leg;
-			
-			if((PowerModule_Index & 0x00FF) == 0x0000 )   //////C嘞虑疟鄣谝桓瞿？�
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM0;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM1;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM2;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM3;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0001 )   //////C相下桥臂第二个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM4;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM5;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM6;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM7;
-				}
-			if((PowerModule_Index & 0x00FF) == 0x0002 )   //////C相下桥臂第三个模块
-				{
-					SM_CMD.bit.SM1_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM8;
-					SM_CMD.bit.SM2_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM9;
-					SM_CMD.bit.SM3_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM10;
-					SM_CMD.bit.SM4_Switch = ECAT_DOWNLOAD.C_DOWN_LEG_CMD.bit.SM11;
-				}
-	
-		}////并联或串联C相下桥臂
-
-*/
-
-
-
-
-

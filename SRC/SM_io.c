@@ -534,7 +534,7 @@ void Mosfet_Drv_Reset(void)
 	ServiceDog( );
 	for(Drv_i=0;Drv_i<350;Drv_i++)
 		{
-			asm("NOP");
+			asm(" NOP");
 		}
 	SMGpioDataSet(24,GPIO_OUT_UP);
 	SMGpioDataSet(25,GPIO_OUT_UP);

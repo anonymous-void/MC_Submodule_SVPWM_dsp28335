@@ -1,5 +1,6 @@
 #include "DSP2833x_Device.h"
 #include "SM_app.h"
+#include "SYM_app.h"
 
 
 int IN=1;
@@ -16,8 +17,10 @@ interrupt void Xint3_isr(void)
 			ProJudgeEn++;
 	if(!COMM_Fault_Flag) COMM_CNT = 0;
 	//EcatSatusRead();//LYB 20130128////////
-    Ecat_DATA_Get();
-	Ecat_CMD_Re();
+//    Ecat_DATA_Get(); // SYM: Disable for SVPWM, function prefixed with sym_ implemented
+//	Ecat_CMD_Re();
+	sym_Ecat_DATA_Get(); // Copy data from FPGA COM board to 28335's ram
+	sym_Ecat_DATA_Decode(); // Decode all the downloaded info according to protocol
 
 	DIUpData( );
 	if(ProJudgeEn) DI_Fault();
@@ -30,7 +33,10 @@ interrupt void Xint3_isr(void)
 	 if(CurSampleEn) Cur_ProtectSD( );  
 	}
 */
-	CMD_Handwith();
+//	CMD_Handwith();  // SYM: Disable for SVPWM, function prefixed with sym_ implemented
+	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
+	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
+	sym_CMD_Handwith();
 
 	SMGpioDataSet(28,GPIO_OUT_DOWN);
 	ECatWrite();
@@ -71,29 +77,29 @@ void SM_ExInt3_Init(void)
 	PieCtrlRegs.PIEIER12.bit.INTx1 = 1;
 	IER |= M_INT12;
 	EDIS;
-	*(Uint16 *)0x100102 = 0xFF00;//0x204-0x205 AL IRQ Event Mask 
+	*(Uint16 *)0x100102 = 0xFF00;//0x204-0x205 AL IRQ Event Mask
 	*(Uint16 *)0x100103 = 0x00FF;//0x206-0x207 AL IRQ Event Mask
 
-	// GPIO0 and GPIO1 are inputs         
+	// GPIO0 and GPIO1 are inputs
 	EALLOW;
 	GpioCtrlRegs.GPBPUD.bit.GPIO36 = 0;
 
 	GpioCtrlRegs.GPBMUX1.bit.GPIO36= 0;         // GPIO
 	GpioCtrlRegs.GPBDIR.bit.GPIO36 = 0;          // input
-	GpioCtrlRegs.GPBQSEL1.bit.GPIO36=3;  
+	GpioCtrlRegs.GPBQSEL1.bit.GPIO36=3;
 
 	GpioIntRegs.GPIOXINT3SEL.bit.GPIOSEL =  36;
 
 	EDIS;
 
-// Configure XINT1                                                     
+// Configure XINT1
 //0-Falling  1-Rising edge
 // Falling edge interrupt 2-Falling edge 3-Falling or Rising edge
 // Rising edge interrupt
 
 	XIntruptRegs.XINT3CR.bit.POLARITY = 1;      // Rising edge interrupt
 
-	// Enable XINT1 and XINT2   
+	// Enable XINT1 and XINT2
 	XIntruptRegs.XINT3CR.bit.ENABLE = 1;
 }
 

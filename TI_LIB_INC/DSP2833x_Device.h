@@ -91,6 +91,7 @@ typedef int                int16;
 typedef long               int32;
 typedef long long          int64;
 typedef unsigned int       Uint16;
+typedef unsigned int       uint16_t;
 typedef unsigned long      Uint32;
 typedef unsigned long long Uint64;
 typedef float              float32;

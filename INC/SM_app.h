@@ -326,6 +326,7 @@ interrupt void Xint3_isr(void);
 
 void SM_Timer_Init(void);
 interrupt void cpu_timer0_isr(void);
+interrupt void cpu_timer1_isr(void);
 interrupt void cpu_timer2_isr(void);
 
 
@@ -358,6 +359,10 @@ void SMGpioDataSet(Uint16 ioNum, Uint16 highOrlOw);
 Uint16 SMGpioDataRead(Uint16 ioNum);
 void SM_GPIO_Init(void);
 void DIUpData(void);
+void DataInit(void);
+void InitXintf(void);
+void DataReset(void);
+void DI_Fault(void);
 
 void ADC_Sample(void);
 Uint16  U_lvBo_SM1(float32 U_k);
