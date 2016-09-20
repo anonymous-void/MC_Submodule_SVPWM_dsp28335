@@ -48,24 +48,20 @@ void SM_Timer_Init(void)
 
 interrupt void cpu_timer0_isr(void)
 {
-//	sym_Ecat_DATA_Decode();
-//	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
-//	go_SYM_MC_SVPWM_MOD.duty[0] = 0.1;
-//	go_SYM_MC_SVPWM_MOD.duty[1] = 0.1;
-//	go_SYM_MC_SVPWM_MOD.duty[2] = 0.2;
-//	go_SYM_MC_SVPWM_MOD.duty[3] = 0.2;
-//	go_SYM_MC_SVPWM_MOD.duty[4] = 0.4;
-//	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
+	sym_Ecat_DATA_Codec(); // SYM: Offline test use only
+	sym_Ecat_DATA_Decode();
+	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
+	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
 //	SM_CMD.bit.Deblock = 1; // SYM: Debug only, mannual deblock
-//	sym_CMD_Handwith();
+	sym_CMD_Handwith();
 ////    CpuTimer0Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
 ////    CpuTimer0Regs.TCR.bit.TRB=1;
 //    PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
-	sym_Branch_Voltage_Out(gi_test_vect[gi_seq_cnt]);
-	gi_seq_cnt ++;
-	if (gi_seq_cnt >= 8)
-		gi_seq_cnt = 0;
+//	sym_Branch_Voltage_Out(gi_test_vect[gi_seq_cnt]);
+//	gi_seq_cnt ++;
+//	if (gi_seq_cnt >= 8)
+//		gi_seq_cnt = 0;
 
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
@@ -85,14 +81,14 @@ interrupt void cpu_timer0_isr(void)
 
 interrupt void cpu_timer1_isr(void)  // SYM: Used for Variable step
 {
-//    CpuTimer1Regs.PRD.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[gi_seq_cnt]; // Load next period's PRD
-//    sym_Branch_Voltage_Out(go_SYM_MC_SVPWM_MOD.voltage_out[gi_seq_cnt]);
-//
-//    gi_seq_cnt ++;
-//    if (gi_seq_cnt >= 5)
-//    	gi_seq_cnt = 0;
-////    CpuTimer1Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
-////    CpuTimer1Regs.TCR.bit.TRB=1;
+    CpuTimer1Regs.PRD.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[gi_seq_cnt]; // Load next period's PRD
+    sym_Branch_Voltage_Out(go_SYM_MC_SVPWM_MOD.voltage_out[gi_seq_cnt]);
+
+    gi_seq_cnt ++;
+    if (gi_seq_cnt >= 5)
+    	gi_seq_cnt = 0;
+//    CpuTimer1Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
+//    CpuTimer1Regs.TCR.bit.TRB=1;
 }
 
 

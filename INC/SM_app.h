@@ -364,6 +364,12 @@ void InitXintf(void);
 void DataReset(void);
 void DI_Fault(void);
 
+void InitPieCtrl(void);
+void InitPieVectTable(void);
+void InitSysCtrl(void);
+void ServiceDog(void);
+void ADC_cal (void);
+
 void ADC_Sample(void);
 Uint16  U_lvBo_SM1(float32 U_k);
 Uint16  U_lvBo_SM2(float32 U_k);

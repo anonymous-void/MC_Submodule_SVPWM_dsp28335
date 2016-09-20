@@ -160,7 +160,7 @@ void sym_Branch_Voltage_Out(int target_level)
 	}
 	else if (target_level == -1){
 		// +Vcap
-		sym_SM1SwitchOn(); // 1st H-bridge output +Vcap, 2ed SC
+		sym_SM1SwitchOn(); // 1st H-bridge output -Vcap, 2ed SC
 		sym_SM2SwitchOff();
 
 		sym_SM3SwitchOn();
@@ -168,14 +168,14 @@ void sym_Branch_Voltage_Out(int target_level)
 	}
 	else if (target_level == -2){
 		// +2Vcap
-		sym_SM1SwitchOn(); // Both Output +Vcap
+		sym_SM1SwitchOn(); // Both Output -Vcap
 		sym_SM2SwitchOff();
 		sym_SM3SwitchOn();
 		sym_SM4SwitchOff();
 	}
 	else if (target_level == 1){
 		// -Vcap
-		sym_SM1SwitchOff(); // 1st H-bridge output -Vcap, 2ed SC
+		sym_SM1SwitchOff(); // 1st H-bridge output +Vcap, 2ed SC
 		sym_SM2SwitchOn();
 
 		sym_SM3SwitchOn();
@@ -214,8 +214,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #ifdef Ax
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;

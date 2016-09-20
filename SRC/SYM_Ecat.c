@@ -49,7 +49,8 @@ void sym_Ecat_DATA_Decode_vector(void)
 }
 
 void sym_Ecat_DATA_Decode(void)
-{
+{/* Description: Decode command, tree, vector, duty and so on from go_SYM_ECAT_DOWN_DATA
+ * */
 	SM_CMD.bit.Reset = ECAT_DOWNLOAD.SM_CMD.bit.Reset; // Original Command code copyed.
 	SM_CMD.bit.Deblock = ECAT_DOWNLOAD.SM_CMD.bit.deblock;
 
@@ -86,6 +87,71 @@ void sym_Ecat_DATA_Decode(void)
     go_SYM_ECAT_DOWN_DATA_DECODED.tree[4] = go_SYM_ECAT_DOWN_DATA.TREE_SEC_3.bit.tree_l;
 }
 
+uint16_t sym_Ecat_DATA_Codec_VectCodec(int vtype, int vnum)
+{/* Description: Given a specific vector's type and num,
+				this func return vector code, whose low 5 bits take effect
+*/
+	uint16_t ret = 0;
+	ret = ( ( (uint16_t)0x03 & (uint16_t)vtype )<<3 ) + ( (uint16_t)0x07 & (uint16_t)vnum); // 2bit of vtype, 3bit of vnum
+	return ret;
+}
+
+
+void sym_Ecat_DATA_Codec(void)
+{/* Description: Codec the specific vals to go_SYM_ECAT_DOWN_DATA
+*/
+	gc_SYM_ECAT_DOWN_DATA_DECODED fo_SYM_ECAT_DOWN_DATA_DECODED;
+	int i = 0;
+	for (i = 0; i < 5; i++){
+		fo_SYM_ECAT_DOWN_DATA_DECODED.duty[i] = 0.2;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.tree[i] = 13;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype = 2;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum = 3;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype = 3;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum = 6;
+	}
+	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY1, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[0], 1);
+	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY2, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[1], 1);
+	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY3, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[2], 1);
+	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY4, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[3], 1);
+
+	go_SYM_ECAT_DOWN_DATA.TREE_SEC_1.bit.tree_l = fo_SYM_ECAT_DOWN_DATA_DECODED.tree[0];
+	go_SYM_ECAT_DOWN_DATA.TREE_SEC_1.bit.tree_h = fo_SYM_ECAT_DOWN_DATA_DECODED.tree[1];
+	go_SYM_ECAT_DOWN_DATA.TREE_SEC_2.bit.tree_l = fo_SYM_ECAT_DOWN_DATA_DECODED.tree[2];
+	go_SYM_ECAT_DOWN_DATA.TREE_SEC_2.bit.tree_h = fo_SYM_ECAT_DOWN_DATA_DECODED.tree[3];
+	go_SYM_ECAT_DOWN_DATA.TREE_SEC_3.bit.tree_l = fo_SYM_ECAT_DOWN_DATA_DECODED.tree[4];
+
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_1.bit.vector_l = \
+			sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[0].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[0].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_1.bit.vector_m = \
+			sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[1].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[1].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_1.bit.vector_h = \
+			sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[2].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[2].vnum);
+
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_2.bit.vector_l = \
+				sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[3].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[3].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_2.bit.vector_m = \
+				sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[4].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[4].vnum);
+
+
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_3.bit.vector_l = \
+				sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[0].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[0].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_3.bit.vector_m = \
+					sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[1].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[1].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_3.bit.vector_h = \
+					sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[2].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[2].vnum);
+
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_4.bit.vector_l = \
+					sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[3].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[3].vnum);
+	go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_4.bit.vector_m = \
+					sym_Ecat_DATA_Codec_VectCodec(fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[4].vtype, fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[4].vnum);
+
+
+	go_SYM_ECAT_DOWN_DATA.SM_CMD.bit.Reset = 0;
+	go_SYM_ECAT_DOWN_DATA.SM_CMD.bit.deblock = 1;
+
+}
+
 
 
 int singles2halfp(void *target, void *source, int numel)
@@ -95,27 +161,35 @@ int singles2halfp(void *target, void *source, int numel)
     UINT16_TYPE    hs, he, hm;
     UINT32_TYPE x, xs, xe, xm;
     int hes;
-    static int next;  // Little Endian adjustment
-    static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
-    double one = 1.0; // Used for checking IEEE754 floating point format
-    UINT32_TYPE *ip; // Used for checking IEEE754 floating point format
+/*
+ * SYM: 2016-09-20
+ *     Comment for forcing ignore the IEEE-754 checking, cause DSP is not intrinsic 32bit, it use 2 16bits emulation.
+ * */
+//    static int next;  // Little Endian adjustment
+//    static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
+//    double one = 1.0; // Used for checking IEEE754 floating point format
+//    UINT32_TYPE *ip; // Used for checking IEEE754 floating point format
 
-    if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
-        ip = (UINT32_TYPE *) &one;
-        if( *ip ) { // If Big Endian, then no adjustment
-            next = 0;
-        } else { // If Little Endian, then adjustment will be necessary
-            next = 1;
-            ip++;
-        }
-        if( *ip != 0x3FF00000u ) { // Check for exact IEEE 754 bit pattern of 1.0
-            return 1;  // Floating point bit pattern is not IEEE 754
-        }
-        if( sizeof(INT16_TYPE) != 2 || sizeof(INT32_TYPE) != 4 ) {
-            return 1;  // short is not 16-bits, or long is not 32-bits.
-        }
-        checkieee = 0; // Everything checks out OK
-    }
+//    if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
+//        ip = (UINT32_TYPE *) &one;
+//        if( *ip ) { // If Big Endian, then no adjustment
+//            next = 0;
+//        } else { // If Little Endian, then adjustment will be necessary
+//            next = 1;
+//            ip++;
+//        }
+//        if( *ip != 0x3FF00000u ) { // Check for exact IEEE 754 bit pattern of 1.0
+//            return 1;  // Floating point bit pattern is not IEEE 754
+//        }
+//        if( sizeof(INT16_TYPE) != 2 || sizeof(INT32_TYPE) != 4 ) {
+//            return 1;  // short is not 16-bits, or long is not 32-bits.
+//        }
+//        checkieee = 0; // Everything checks out OK
+//    }
+/*
+ * SYM: 2016-09-20
+ *     Comment for forcing ignore the IEEE-754 checking, cause DSP is not intrinsic 32bit, it use 2 16bits emulation.
+ * */
 
     if( source == NULL || target == NULL ) { // Nothing to convert (e.g., imag part of pure real)
         return 0;
@@ -174,27 +248,36 @@ int halfp2singles(void *target, void *source, int numel)
     UINT32_TYPE xs, xe, xm;
     INT32_TYPE xes;
     int e;
-    static int next;  // Little Endian adjustment
-    static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
-    double one = 1.0; // Used for checking IEEE754 floating point format
-    UINT32_TYPE *ip; // Used for checking IEEE754 floating point format
 
-    if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
-        ip = (UINT32_TYPE *) &one;
-        if( *ip ) { // If Big Endian, then no adjustment
-            next = 0;
-        } else { // If Little Endian, then adjustment will be necessary
-            next = 1;
-            ip++;
-        }
-        if( *ip != 0x3FF00000u ) { // Check for exact IEEE 754 bit pattern of 1.0
-            return 1;  // Floating point bit pattern is not IEEE 754
-        }
-        if( sizeof(INT16_TYPE) != 2 || sizeof(INT32_TYPE) != 4 ) {
-            return 1;  // short is not 16-bits, or long is not 32-bits.
-        }
-        checkieee = 0; // Everything checks out OK
-    }
+/*
+ * SYM: 2016-09-20
+ *     Comment for forcing ignore the IEEE-754 checking, cause DSP is not intrinsic 32bit, it use 2 16bits emulation.
+ * */
+//    static int next;  // Little Endian adjustment
+//    static int checkieee = 1;  // Flag to check for IEEE754, Endian, and word size
+//    double one = 1.0; // Used for checking IEEE754 floating point format
+//    UINT32_TYPE *ip; // Used for checking IEEE754 floating point format
+
+//    if( checkieee ) { // 1st call, so check for IEEE754, Endian, and word size
+//        ip = (UINT32_TYPE *) &one;
+//        if( *ip ) { // If Big Endian, then no adjustment
+//            next = 0;
+//        } else { // If Little Endian, then adjustment will be necessary
+//            next = 1;
+//            ip++;
+//        }
+//        if( *ip != 0x3FF00000u ) { // Check for exact IEEE 754 bit pattern of 1.0
+//            return 1;  // Floating point bit pattern is not IEEE 754
+//        }
+//        if( sizeof(INT16_TYPE) != 2 || sizeof(INT32_TYPE) != 4 ) {
+//            return 1;  // short is not 16-bits, or long is not 32-bits.
+//        }
+//        checkieee = 0; // Everything checks out OK
+//    }
+/*
+ * SYM: 2016-09-20
+ *     Comment for forcing ignore the IEEE-754 checking, cause DSP is not intrinsic 32bit, it use 2 16bits emulation.
+ * */
 
     if( source == NULL || target == NULL ) // Nothing to convert (e.g., imag part of pure real)
         return 0;

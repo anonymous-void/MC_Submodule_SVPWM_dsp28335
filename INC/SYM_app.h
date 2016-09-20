@@ -91,7 +91,7 @@ typedef struct gs_SYM_ECAT_DOWN_DATA_VECTOR
 
 typedef struct gs_SYM_ECAT_DOWN_DATA_DECODED
 {
-    float duty[4];
+    float duty[5]; // The fifth duty does not really matter, cuz it could be calced by former 4 duties.
     uint16_t  tree[5];
     gc_SYM_ECAT_DOWN_DATA_VECTOR	vector_input[5];
     gc_SYM_ECAT_DOWN_DATA_VECTOR	vector_output[5];
@@ -100,7 +100,7 @@ typedef struct gs_SYM_ECAT_DOWN_DATA_DECODED
 typedef struct gs_SYM_MC_SVPWM_MOD
 {
 	float duty[5];
-	Uint16 voltage_out[5];
+	int voltage_out[5];
 } gc_SYM_MC_SVPWM_MOD;
 
 
