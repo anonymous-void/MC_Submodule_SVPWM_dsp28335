@@ -15,8 +15,8 @@ Description: This subroutine
 		   temp+=ECat_Download_Buf[i];
 	   }
 
-	if(temp == ECat_Download_Buf[13])//(N<200)
-	{
+//	if(temp == ECat_Download_Buf[13]) // SYM: Checksum disable for more COM space
+//	{
 		go_SYM_ECAT_DOWN_DATA.SM_CMD.all =       ECat_Download_Buf[0];
 		go_SYM_ECAT_DOWN_DATA.DUTY1 =            ECat_Download_Buf[1];
 		go_SYM_ECAT_DOWN_DATA.DUTY2 =            ECat_Download_Buf[2];
@@ -31,7 +31,7 @@ Description: This subroutine
 		go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_4.all = ECat_Download_Buf[11];
 		go_SYM_ECAT_DOWN_DATA.UdcOverVol =       ECat_Download_Buf[12];
 		go_SYM_ECAT_DOWN_DATA.OverCur =          ECat_Download_Buf[13];
-    }
+//    }
 
 }
 
@@ -104,12 +104,38 @@ void sym_Ecat_DATA_Codec(void)
 	int i = 0;
 	for (i = 0; i < 5; i++){
 		fo_SYM_ECAT_DOWN_DATA_DECODED.duty[i] = 0.2;
-		fo_SYM_ECAT_DOWN_DATA_DECODED.tree[i] = 13;
-		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype = 2;
-		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum = 3;
-		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype = 3;
-		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum = 6;
+		fo_SYM_ECAT_DOWN_DATA_DECODED.tree[i] = 0;
+//		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype = 2;
+//		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum = 3;
+//		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype = 3;
+//		fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum = 6;
 	}
+
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[0].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[1].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[2].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[3].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[4].vtype = 1;
+
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[0].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[1].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[2].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[3].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_input[4].vnum = 1;
+
+
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[0].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[1].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[2].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[3].vtype = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[4].vtype = 1;
+
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[0].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[1].vnum = 5;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[2].vnum = 1;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[3].vnum = 5;
+	fo_SYM_ECAT_DOWN_DATA_DECODED.vector_output[4].vnum = 1;
+
 	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY1, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[0], 1);
 	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY2, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[1], 1);
 	singles2halfp(&go_SYM_ECAT_DOWN_DATA.DUTY3, &fo_SYM_ECAT_DOWN_DATA_DECODED.duty[2], 1);

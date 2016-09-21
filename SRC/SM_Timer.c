@@ -3,13 +3,12 @@
 #include "DSP2833x_ePwm_defines.h"
 #include "SYM_app.h"
 
-volatile Uint16 seq_cnt = 0;
-//volatile float seq[6] = {0.5, 1, 1.5, 2, 2.5, 3};
-volatile float seq[5] = {0.1, 0.1, 0.2, 0.2, 0.4};
+
 //Uint16 i;
 Uint16 gi_polarityFlag = 0;
 const Uint16 gi_switching_freq = 10000; // [Hz]
 Uint16 gi_switching_cycle = 1000000 / gi_switching_freq; // In micro-second, [us].
+
 
 void SM_Timer_Init(void)
 {
@@ -48,12 +47,16 @@ void SM_Timer_Init(void)
 
 interrupt void cpu_timer0_isr(void)
 {
-	sym_Ecat_DATA_Codec(); // SYM: Offline test use only
+//SYM: Offline test use only
+	sym_Ecat_DATA_Codec();
 	sym_Ecat_DATA_Decode();
 	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
 	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
-//	SM_CMD.bit.Deblock = 1; // SYM: Debug only, mannual deblock
+	SM_CMD.bit.Deblock = 1; // SYM: Debug only, mannual deblock
 	sym_CMD_Handwith();
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+//SYM: Offline test use only
+
 ////    CpuTimer0Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
 ////    CpuTimer0Regs.TCR.bit.TRB=1;
 //    PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
@@ -63,9 +66,17 @@ interrupt void cpu_timer0_isr(void)
 //	if (gi_seq_cnt >= 8)
 //		gi_seq_cnt = 0;
 
-	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
-// // Test OK
+
+//// ePWM software force output test code start
+//	sym_Branch_Voltage_Out(gi_test_vect[gi_seq_cnt]);
+//	gi_seq_cnt ++ ;
+//	if (gi_seq_cnt >= 8)
+//		gi_seq_cnt = 0;
+//// Acknowledge this interrupt to receive more interrupts from group 1
+////	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+//// ePWM software force output test code end
+
 //	StopCpuTimer1();
 //	gi_seq_cnt = 1;
 //	CpuTimer1Regs.PRD.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[gi_seq_cnt];
@@ -73,8 +84,8 @@ interrupt void cpu_timer0_isr(void)
 //	sym_Branch_Voltage_Out(go_SYM_MC_SVPWM_MOD.voltage_out[0]);
 //	gi_polarity_flag = 0;
 //	StartCpuTimer1();
-//
-//	//   // Acknowledge this interrupt to receive more interrupts from group 1
+
+//// Acknowledge this interrupt to receive more interrupts from group 1
 //	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 

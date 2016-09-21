@@ -19,8 +19,12 @@ interrupt void Xint3_isr(void)
 	//EcatSatusRead();//LYB 20130128////////
 //    Ecat_DATA_Get(); // SYM: Disable for SVPWM, function prefixed with sym_ implemented
 //	Ecat_CMD_Re();
-	sym_Ecat_DATA_Get(); // Copy data from FPGA COM board to 28335's ram
-	sym_Ecat_DATA_Decode(); // Decode all the downloaded info according to protocol
+
+//	sym_Ecat_DATA_Get(); // Copy data from FPGA COM board to 28335's ram
+//	sym_Ecat_DATA_Decode(); // Decode all the downloaded info according to protocol
+//	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
+//	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
+//	sym_CMD_Handwith();
 
 	DIUpData( );
 	if(ProJudgeEn) DI_Fault();
@@ -34,9 +38,7 @@ interrupt void Xint3_isr(void)
 	}
 */
 //	CMD_Handwith();  // SYM: Disable for SVPWM, function prefixed with sym_ implemented
-	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
-	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
-	sym_CMD_Handwith();
+
 
 	SMGpioDataSet(28,GPIO_OUT_DOWN);
 	ECatWrite();
@@ -49,17 +51,17 @@ interrupt void Xint3_isr(void)
 	C = A*sin(6.283185*B);
 	angel=(int)(1875+1500*C);
 */
-	EALLOW;
-	EPwm1Regs.CMPA.half.CMPA = MC_Modulation;
-	EPwm1Regs.CMPB = MC_Modulation;
-	EPwm2Regs.CMPA.half.CMPA = MC_Modulation;
-	EPwm2Regs.CMPB = MC_Modulation;
-	EPwm3Regs.CMPA.half.CMPA = MC_Modulation;
-	EPwm3Regs.CMPB = MC_Modulation;
-	EPwm4Regs.CMPA.half.CMPA = MC_Modulation;
-	EPwm4Regs.CMPB = MC_Modulation;
-
-	EDIS;
+//	EALLOW;
+//	EPwm1Regs.CMPA.half.CMPA = MC_Modulation;
+//	EPwm1Regs.CMPB = MC_Modulation;
+//	EPwm2Regs.CMPA.half.CMPA = MC_Modulation;
+//	EPwm2Regs.CMPB = MC_Modulation;
+//	EPwm3Regs.CMPA.half.CMPA = MC_Modulation;
+//	EPwm3Regs.CMPB = MC_Modulation;
+//	EPwm4Regs.CMPA.half.CMPA = MC_Modulation;
+//	EPwm4Regs.CMPB = MC_Modulation;
+//
+//	EDIS;
  //   EcatInit( );
 	// Acknowledge this interrupt to get more from group 1
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
