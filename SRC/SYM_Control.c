@@ -34,8 +34,9 @@ Uint16 sym_CMD_Handwith(void) ///主控制器发送命令处理
 			&&(SM_STATUS.ECAT_UP.SM34_fault.all == 0) )
 	{
 		EALLOW;
-
+		sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
 		StartCpuTimer1();
+		StartCpuTimer0();
 
 		PassbyLedOff;
 		InvLedOn;
@@ -45,11 +46,12 @@ Uint16 sym_CMD_Handwith(void) ///主控制器发送命令处理
 	else
 	{
 		EALLOW;
+		StopCpuTimer1();
+		StopCpuTimer0();
 		PassbyLedOff;
 		InvLedOff;
 		EDIS;
 		sym_MOSFETBlock( );
-		StopCpuTimer1();
 		return 0;
 
 	}
@@ -130,22 +132,22 @@ void sym_MOSFETBlock(void)
 {
 	EALLOW;
 
-	EPwm1Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
-	EPwm2Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
-	EPwm3Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
-	EPwm4Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
+//	EPwm1Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
+//	EPwm2Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
+//	EPwm3Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
+//	EPwm4Regs.DBCTL.bit.OUT_MODE = DB_DISABLE;
 
-	EPwm1Regs.AQCSFRC.bit.CSFA = 0x00;//<sprug04a> P106, 0x00: forcing disabled
-    EPwm1Regs.AQCSFRC.bit.CSFB = 0x00;
+	EPwm1Regs.AQCSFRC.bit.CSFA = 0x01;//<sprug04a> P106, 0x01: force low, shutdown all MOSFETs
+    EPwm1Regs.AQCSFRC.bit.CSFB = 0x01;
 
-	EPwm2Regs.AQCSFRC.bit.CSFA = 0x00;
-    EPwm2Regs.AQCSFRC.bit.CSFB = 0x00;
+	EPwm2Regs.AQCSFRC.bit.CSFA = 0x01;
+    EPwm2Regs.AQCSFRC.bit.CSFB = 0x01;
 
-	EPwm3Regs.AQCSFRC.bit.CSFA = 0x00;
-    EPwm3Regs.AQCSFRC.bit.CSFB = 0x00;
+	EPwm3Regs.AQCSFRC.bit.CSFA = 0x01;
+    EPwm3Regs.AQCSFRC.bit.CSFB = 0x01;
 
-	EPwm4Regs.AQCSFRC.bit.CSFA = 0x00;
-    EPwm4Regs.AQCSFRC.bit.CSFB = 0x00;
+	EPwm4Regs.AQCSFRC.bit.CSFA = 0x01;
+    EPwm4Regs.AQCSFRC.bit.CSFB = 0x01;
 	EDIS;
 }
 
@@ -223,8 +225,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Ay
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -232,8 +234,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Az
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -241,8 +243,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Bx
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -250,8 +252,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif By
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -259,8 +261,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Bz
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -268,8 +270,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Cx
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][0];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -277,8 +279,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Cy
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][1];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
@@ -286,8 +288,8 @@ Description: This subroutine does not generate the whole matrix, but generate th
 #elif Cz
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
-			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
+			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_output[i].vnum][2];
 		}
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;

@@ -98,8 +98,10 @@ interrupt void cpu_timer1_isr(void)  // SYM: Used for Variable step
     gi_seq_cnt ++;
     if (gi_seq_cnt >= 5)
     	gi_seq_cnt = 0;
-//    CpuTimer1Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
+    CpuTimer1Regs.TCR.bit.TIF=1;  //SYM: write 1 to it to clear the Timer Interrupt Flag
+//    CpuTimer1Regs.TCR.bit.TIE = 0;
 //    CpuTimer1Regs.TCR.bit.TRB=1;
+
 }
 
 
