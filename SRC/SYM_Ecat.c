@@ -31,6 +31,9 @@ Description: This subroutine
 		go_SYM_ECAT_DOWN_DATA.VECTOR_SEC_4.all = ECat_Download_Buf[11];
 		go_SYM_ECAT_DOWN_DATA.UdcOverVol =       ECat_Download_Buf[12];
 		go_SYM_ECAT_DOWN_DATA.OverCur =          ECat_Download_Buf[13];
+
+		ECAT_DOWNLOAD.UdcOverVol = go_SYM_ECAT_DOWN_DATA.UdcOverVol;
+		ECAT_DOWNLOAD.OverCur = go_SYM_ECAT_DOWN_DATA.OverCur;
 //    }
 
 }

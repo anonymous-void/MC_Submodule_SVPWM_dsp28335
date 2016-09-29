@@ -48,12 +48,12 @@ void SM_Timer_Init(void)
 interrupt void cpu_timer0_isr(void)
 {
 //SYM: Offline test use only
-	sym_Ecat_DATA_Codec();
-	sym_Ecat_DATA_Decode();
-	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
-	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
-	SM_CMD.bit.Deblock = 1; // SYM: Debug only, mannual deblock
-	sym_CMD_Handwith();
+//	sym_Ecat_DATA_Codec();
+//	sym_Ecat_DATA_Decode();
+//	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
+//	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
+//	SM_CMD.bit.Deblock = 1; // SYM: Debug only, mannual deblock
+//	sym_CMD_Handwith();
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 //SYM: Offline test use only
 

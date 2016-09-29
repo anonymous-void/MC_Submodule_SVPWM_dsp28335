@@ -30,7 +30,7 @@ Uint16 sym_CMD_Handwith(void) ///Ö÷¿ØÖÆÆ÷·¢ËÍÃüÁî´¦Àí
 		return 0;
 	}
 
-	if ( (SM_CMD.bit.Deblock == 1)&&(SM_STATUS.ECAT_UP.SM12_fault.all==0)  //Äæ±ä×´Ì¬
+	if ( (go_SYM_ECAT_DOWN_DATA.SM_CMD.bit.deblock == 1)&&(SM_STATUS.ECAT_UP.SM12_fault.all==0)  //Äæ±ä×´Ì¬
 			&&(SM_STATUS.ECAT_UP.SM34_fault.all == 0) )
 	{
 		EALLOW;
@@ -299,6 +299,14 @@ Description: This subroutine does not generate the whole matrix, but generate th
 void sym_Cpu_Timer_Setup_In_Xint(void)
 {
 	StopCpuTimer1();
+
+//    CpuTimer1Regs.PRD.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[gi_seq_cnt]; // Load next period's PRD
+//    sym_Branch_Voltage_Out(go_SYM_MC_SVPWM_MOD.voltage_out[gi_seq_cnt]);
+//
+//    gi_seq_cnt ++;
+//    if (gi_seq_cnt >= 5)
+//    	gi_seq_cnt = 0;
+
 	gi_seq_cnt = 1;
 	CpuTimer1Regs.PRD.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[gi_seq_cnt];
 	CpuTimer1Regs.TIM.all = 150 * gm_SWITHCING_PRD * go_SYM_MC_SVPWM_MOD.duty[0];

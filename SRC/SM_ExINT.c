@@ -20,11 +20,11 @@ interrupt void Xint3_isr(void)
 //    Ecat_DATA_Get(); // SYM: Disable for SVPWM, function prefixed with sym_ implemented
 //	Ecat_CMD_Re();
 
-//	sym_Ecat_DATA_Get(); // Copy data from FPGA COM board to 28335's ram
-//	sym_Ecat_DATA_Decode(); // Decode all the downloaded info according to protocol
-//	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
-//	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
-//	sym_CMD_Handwith();
+	sym_Ecat_DATA_Get(); // Copy data from FPGA COM board to 28335's ram
+	sym_Ecat_DATA_Decode(); // Decode all the downloaded info according to protocol
+	sym_Matrix_Generation(); // Calc the vector and duty cycle of one switching period
+	sym_Cpu_Timer_Setup_In_Xint(); // Initialize the PRD and Counter Reg of Timer
+	sym_CMD_Handwith();
 
 	DIUpData( );
 	if(ProJudgeEn) DI_Fault();
