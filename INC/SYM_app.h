@@ -10,7 +10,16 @@
 #define SRC_SYM_APP_H_
 
 // Macros for Submodule address
-#define Ax
+#define UA
+/*
+       A    B    C
+       ^    ^    ^
+       |    |    |
+U -> | UA | UB | UC |
+V -> | VA | VB | VC |
+W -> | WA | WB | WC |
+
+*/
 
 // Macros for single float and half float conversion
 #define  INT16_TYPE          short

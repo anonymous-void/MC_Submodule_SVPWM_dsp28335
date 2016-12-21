@@ -213,7 +213,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 
 	for (i = 0; i < 5; i++)
 	{
-#ifdef Ax
+#ifdef UA
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
@@ -222,7 +222,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Ay
+#elif defined UB
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
@@ -231,7 +231,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Az
+#elif defined UC
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][0][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][0] - \
@@ -240,7 +240,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Bx
+#elif defined VA
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
@@ -249,7 +249,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif By
+#elif defined VB
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
@@ -258,7 +258,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Bz
+#elif defined VC
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][1][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][1] - \
@@ -267,7 +267,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Cx
+#elif defined WA
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][0] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
@@ -276,7 +276,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Cy
+#elif defined WB
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][1] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
@@ -285,7 +285,7 @@ Description: This subroutine does not generate the whole matrix, but generate th
 		else{
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = INF;
 		}
-#elif Cz
+#elif defined WC
 		if (gi_Tree[go_SYM_ECAT_DOWN_DATA_DECODED.tree[i]][2][2] == 1){// If tree do not mask this submodule
 			go_SYM_MC_SVPWM_MOD.voltage_out[i] = \
 			gi_Vector[go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vtype - 1][go_SYM_ECAT_DOWN_DATA_DECODED.vector_input[i].vnum][2] - \
