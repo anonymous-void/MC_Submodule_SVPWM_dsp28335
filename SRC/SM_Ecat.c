@@ -92,13 +92,21 @@ void ECatWrite(void)
 	Uint16 ret=0;
     int temp=0,j;
 
-		ECat_UP_Buf[0] = SM_STATUS.ECAT_UP.SM1Udc;
-		ECat_UP_Buf[1] = SM_STATUS.ECAT_UP.SM2Udc;
-		ECat_UP_Buf[2] = SM_STATUS.ECAT_UP.SM3Udc;
-		ECat_UP_Buf[3] = SM_STATUS.ECAT_UP.SM4Udc;
-		ECat_UP_Buf[4] = SM_STATUS.ECAT_UP.SM_Cur;
-		ECat_UP_Buf[5] = SM_STATUS.ECAT_UP.SM12_fault.all;
-		ECat_UP_Buf[6] = SM_STATUS.ECAT_UP.SM34_fault.all;
+//	ECat_UP_Buf[0] = SM_STATUS.ECAT_UP.SM1Udc; // Original
+//	ECat_UP_Buf[1] = SM_STATUS.ECAT_UP.SM2Udc;
+//	ECat_UP_Buf[2] = SM_STATUS.ECAT_UP.SM3Udc;
+//	ECat_UP_Buf[3] = SM_STATUS.ECAT_UP.SM4Udc;
+//	ECat_UP_Buf[4] = SM_STATUS.ECAT_UP.SM_Cur;
+//	ECat_UP_Buf[5] = SM_STATUS.ECAT_UP.SM12_fault.all;
+//	ECat_UP_Buf[6] = SM_STATUS.ECAT_UP.SM34_fault.all;
+
+	ECat_UP_Buf[0] = 13;  // SYM only for test
+	ECat_UP_Buf[1] = 25;
+	ECat_UP_Buf[2] = 314;
+	ECat_UP_Buf[3] = 62;
+	ECat_UP_Buf[4] = 1314;
+	ECat_UP_Buf[5] = 99;
+	ECat_UP_Buf[6] = 8;
 
 	for(j=0;j<7;j++)
 	{
